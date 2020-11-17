@@ -28,6 +28,7 @@
 	</form>
 
 </div>
+
 <div id="response_error"></div>
 </body>
 
@@ -45,6 +46,7 @@
 		
 		let lat ="";
 		let longit = "";
+		let loc = "";
 	     google.maps.event.addListener(autocomplete, 'place_changed', function () {
 			var near_place = autocomplete.getPlace();
 			document.getElementById('loc_lat').value = near_place.geometry.location.lat();
@@ -54,6 +56,13 @@
 			longit = near_place.geometry.location.lng();
 			loc = near_place.geometry.location;
         });
+			$(document).on('change', '#'+searchInput, function () {
+    document.getElementById('loc_lat').value = '';
+    document.getElementById('loc_long').value = '';
+
+    document.getElementById('loc_lat').innerHTML = '';
+    document.getElementById('loc_long').innerHTML = '';
+});
 		
 		
           $('#messageSend').on('submit', function(e) {
