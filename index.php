@@ -52,12 +52,14 @@
 			
 			lat = near_place.geometry.location.lat();
 			longit = near_place.geometry.location.lng();
+			loc = near_place.geometry.location;
         });
 		
 		
           $('#messageSend').on('submit', function(e) {
 		
 			console.log(lat);
+			console.log(loc);
 
             e.preventDefault();
 
