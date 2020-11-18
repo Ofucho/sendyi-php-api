@@ -2,6 +2,7 @@
 
 <head>
  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyD5y2Y1zfyWCWDEPRLDBDYuRoJ8ReHYXwY"></script>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
@@ -46,7 +47,8 @@
 		
 		let lat ="";
 		let longit = "";
-		let loc = "";
+		let locate = "";
+		
 	     google.maps.event.addListener(autocomplete, 'place_changed', function () {
 			var near_place = autocomplete.getPlace();
 			document.getElementById('loc_lat').value = near_place.geometry.location.lat();
@@ -54,7 +56,9 @@
 			
 			lat = near_place.geometry.location.lat();
 			longit = near_place.geometry.location.lng();
-			loc = near_place.geometry.location;
+			locate = new google.maps.LatLng(lat,longit);
+			
+	
         });
 			$(document).on('change', '#'+searchInput, function () {
     document.getElementById('loc_lat').value = '';
@@ -64,17 +68,18 @@
     document.getElementById('loc_long').innerHTML = '';
 });
 		
-		
           $('#messageSend').on('submit', function(e) {
 		
 			console.log(lat);
-			console.log(loc);
+			console.log(locate);
 
             e.preventDefault();
 
            var that = $(this),url = that.attr('action'),method = that.attr('method'),data = {};
 		   data['longitude'] = longit;
 		   data['latitude'] = lat;
+		   data['location'] = locate;
+		   
               
            that.find('[name]').each(function(index, value){var that = $(this),name = that.attr('id'),value = that.val();data[name] = value;});
 
@@ -83,8 +88,8 @@
            console.log(data);
             
           $.ajax({
-                url: url,
-                type: method,
+                url: 'main.php',
+                type: 'POST',
                 data: data,
                 success: function(results){
 

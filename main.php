@@ -1,7 +1,10 @@
 <?php
-$longitude = 36.7976586;
+$longitude = $_POST['longitude'];
 
-$latitude = -1.2978588;
+$latitude = $_POST['latitude'];
+
+$location = $_POST['location'];
+
 $sendy_api_url = "https://apitest.sendyit.com/v1/";
 
 
@@ -43,7 +46,7 @@ function sendy_curl_exec( $url, $command, $data ) {
 		$to_name = 'Customer';
 		$to_lat = $latitude;
 		$to_long = $longitude;
-		$to_address = $geo_addr;
+		$to_address = $location;
 		$to_description = "To be delivered to $to_address ($to_lat,$to_long).";
 		$recepient_name = "Test User";
 		$recepient_phone = "0711222333";
