@@ -3,12 +3,9 @@ $longitude = $_POST['longitude'];
 
 $latitude = $_POST['latitude'];
 
-$location = $_POST['location'];
+$recepient_address = $_POST['location'];
 
 $sendy_api_url = "https://apitest.sendyit.com/v1/";
-
-
-
 
 
 function sendy_curl_exec( $url, $command, $data ) {
@@ -46,7 +43,7 @@ function sendy_curl_exec( $url, $command, $data ) {
 		$to_name = 'Customer';
 		$to_lat = $latitude;
 		$to_long = $longitude;
-		$to_address = $location;
+		$to_address = $recepient_address;
 		$to_description = "To be delivered to $to_address ($to_lat,$to_long).";
 		$recepient_name = "Test User";
 		$recepient_phone = "0711222333";
@@ -96,24 +93,17 @@ function sendy_curl_exec( $url, $command, $data ) {
 			),
 		);
 		
-		echo "<h1>DATA SENT TO SENDY API</h1>";
-		echo "URL:".$sendy_api_url."<br/>";
-		print_r($data);
 		
 		# Execute the curl command
 		$response = sendy_curl_exec( $sendy_api_url, $command, $data );
 		
 		# Print response
-		#$result = json_decode($result, true);
+		$result = json_decode($response, true);
 		
-		echo "<br/><h1>DATA RECEIVED FROM SENDY API</h1>";
-		var_dump($response);
-	
-	}else{
-		echo "<h1>ERROR</h1>";
-		echo "Check your API keys and ensure all mandatory fields are not empty before submission";
+		print_r($result ['data']['amount']);
+		//echo ($result ['data']['currency']);
+		//echo ($result ['data']['amount']);
+
 	}
-	echo "</pre>";
-
-
+	
 ?>
